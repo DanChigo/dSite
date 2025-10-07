@@ -1,4 +1,5 @@
 import Contact from './components/Contact';
+import About from './components/About';
 import Desktop from './components/Desktop';
 import Toolbar  from './components/Toolbar';
 import Blog from './components/Blog';
@@ -15,6 +16,7 @@ function App() {
     const [showWindow, setShowWindow] = useState({
         Contact: false,
         Blog: false,
+        About: false,
     });
 
     const toggleWindow = (windowName: string, isVisible: boolean) => {
@@ -33,6 +35,7 @@ function App() {
             <Desktop actions={{
                 'Contact': () => handleOpenWindow('Contact'),
                 'Blog': () => handleOpenWindow('Blog'),
+                'About': () => handleOpenWindow('About'),
             }}/>
             <Contact
                 show={showWindow.Contact}
@@ -41,6 +44,10 @@ function App() {
             <Blog
                 show={showWindow.Blog}
                 toggle={() => toggleWindow('Blog', !showWindow.Blog)}
+            />
+            <About
+                show={showWindow.About}
+                toggle={() => toggleWindow('About', !showWindow.About)}
             />
         </WindowSizeProvider>
         </>
