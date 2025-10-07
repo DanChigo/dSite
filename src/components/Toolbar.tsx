@@ -1,7 +1,6 @@
 import React from 'react';
-import { useState } from 'react';
 import { ReaderClosed } from '@react95/icons';
-import { Modal, TaskBar, List } from '@react95/core';
+import { TaskBar, List } from '@react95/core';
 
 // @ts-ignore
 function Toolbar() {

@@ -29,3 +29,156 @@ body {
         padding: 15px;
 }
 
+.blog-container {
+  padding: 15px;
+  height: 100%;
+  background: linear-gradient(135deg, #ba40a8 0%, #f0a9e5 100%);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to top */
+}
+
+.loading-message, .no-posts {
+  text-align: center;
+  padding: 50px;
+  color: white;
+  font-size: 16px;
+}
+
+.error-message {
+  text-align: center;
+  padding: 50px;
+  color: #ff6b6b;
+  font-size: 14px;
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  margin: 20px;
+}
+
+.blog-post {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.blog-post:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.category-badge {
+  min-width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.post-content {
+  flex: 1;
+}
+
+.post-date {
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.post-title {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  color: #2c3e50;
+  line-height: 1.4;
+}
+
+.post-description {
+  margin: 0;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+.read-more {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #667eea;
+  font-weight: bold;
+}
+
+/* Add a message for when you have few posts */
+.blog-container::after {
+  content: "✍️ More posts coming soon...";
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+}
+
+.blog-post-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  overflow: hidden;
+  margin: 0; /* Remove any default margins */
+  padding: 0; /* Remove any default padding */
+}
+
+.blog-post-header {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ccc;
+  background: #f0f0f0;
+  display: flex;
+  gap: 10px;
+  margin: 0; /* Ensure no margin */
+}
+
+.blog-post-content {
+  flex: 1;
+  padding: 15px 20px 20px 20px; /* Reduce top padding */
+  overflow-y: auto;
+  overflow-x: hidden;
+  line-height: 1.6;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0; /* Remove margins */
+}
+
+.post-meta {
+  margin-bottom: 15px; /* Reduce bottom margin */
+  padding-bottom: 8px; /* Reduce bottom padding */
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Force content to wrap */
+.post-article * {
+  white-space: normal !important;
+}
+
+/* Remove the debug info now that we know it works */
+.blog-post-content .debug-info {
+  display: none;
+}
+

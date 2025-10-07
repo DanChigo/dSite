@@ -25,7 +25,6 @@ function App() {
     }
 
     const handleOpenWindow = (windowName: string) => toggleWindow(windowName, true);
-    const handleCloseHelp = () => toggleWindow("help", false);
 
     return (
         <>
