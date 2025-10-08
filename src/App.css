@@ -262,7 +262,10 @@ body {
 .project-item p:last-child {
   margin-bottom: 0;
 }
-
+.project-item img {
+  max-width: 100%;
+  display: block;
+}
 .project-item a {
   color: #0000ee;
   text-decoration: underline;

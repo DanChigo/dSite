@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, List, TitleBar, Frame} from "@react95/core";
 import { Awfxex32Info } from "@react95/icons";
+import researchPoster from '../images/research_poster.png';
 
 export default function About(props: {show : boolean, toggle: () => void}) {
     const showAbout = props.show;
@@ -61,7 +62,17 @@ export default function About(props: {show : boolean, toggle: () => void}) {
                                     
                                     <div className="project-item">
                                         <h3>🤖 MARP Agent</h3>
-                                        <p>An AI agent system designed for multi-agent reinforcement learning. Built using Python and TensorFlow, this project explores cooperative and competitive behaviors in artificial intelligence environments.</p>
+                                        <p>I was a summer 2025 AI/ML Engineering intern at CNA Financial Corporation. My main project concerned developing, optimizing,
+                                            and deploying an AI Agent to assiste executives in the company. The problem the agent was designed to alleviate
+                                            was the overwhelming amount of monthly reports executives have to comb through to keep up with the state of the company. The agent was designed to
+                                            The reports were nearly 400+ pages long and contained their teams updates on critical accounts. 
+                                        </p>
+                                        <p>
+                                            The agent was built with SharePoint Agent, and we used Prompt Engineering techniques to take the agents
+                                            performance from 60% to 90% accurracy. A drag in the development process was the manual testing that had to be 
+                                            done to validate the agents performance. I personally developed an automated testing framework using Playwright
+                                            and TypeScript. This allowed us to run 20 queries in only 5 minutes a task that would have taken 2-3 hours manually. 
+                                        </p>
                                     </div>
 
                                     <div className="project-item">
@@ -81,8 +92,9 @@ export default function About(props: {show : boolean, toggle: () => void}) {
                                     </div>
 
                                     <div className="project-item">
-                                        <h3>🔒 DP-SGD</h3>
-                                        <p>Implementation of Differentially Private Stochastic Gradient Descent for privacy-preserving machine learning. Focuses on maintaining model accuracy while protecting individual data privacy.</p>
+                                        <h3>🔒 Hardware Optimization DP-SGD</h3>
+                                        <p>This was a research project I did during the 2024-2025 school year</p>
+                                        <img src={researchPoster} alt="Hardware Optimization DP-SGD"/>
                                     </div>
                                 </section>
 
