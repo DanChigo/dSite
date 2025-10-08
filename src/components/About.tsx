@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, List, Frame, TitleBar} from "@react95/core";
+import { Modal, List, TitleBar, Frame} from "@react95/core";
 import { Awfxex32Info } from "@react95/icons";
 
 export default function About(props: {show : boolean, toggle: () => void}) {
@@ -47,17 +47,13 @@ export default function About(props: {show : boolean, toggle: () => void}) {
                     }
                 ]}
                 >
-                    <Frame w="100%" h="100%" bgColor="white" boxShadow="$in">
+                    <Frame height="92%" bgColor="white" boxshadow="$in">
                         <div className="about-container">
-                            <div className="about-header">
-                                <h1>About Me</h1>
-                            </div>
-
                             <div className="about-content">
                                 <section className="bio">
                                     <p>Hello! I'm Danielle Ejiogu, a software developer with experience in Agile design,
                                         full-stack development, and AI agents. I love to create efficient solutions to 
-                                        complex problems. Beyond coding, I enjoy hiking, reading, writing, and talking to new people!
+                                        complex problems. I'm about to graduate university and am open to new opportunities. Beyond coding, I enjoy hiking, reading, writing, and talking to new people!
                                     </p>
                                 </section>
                                 <section className="projects">
