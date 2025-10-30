@@ -15,7 +15,7 @@ interface DesktopProps {
 export default function Desktop(props : DesktopProps) {
     const handleOpenBlog = props.actions['Blog'];
     const handleOpenContact = props.actions['Contact'];
-    const handleOpenGames = props.actions['Games'];
+    const handleOpenGames = props.actions['Euchre'];
     const handleOpenAbout = props.actions['About'];
       const [activeIcon, setActiveIcon] = useState<number | null>(null);
 
