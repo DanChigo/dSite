@@ -1,4 +1,5 @@
 import Contact from './components/Contact';
+import Euchre from './components/Euchre/Euchre';
 import About from './components/About';
 import Desktop from './components/Desktop';
 import Toolbar  from './components/Toolbar';
@@ -17,6 +18,7 @@ function App() {
         Contact: false,
         Blog: false,
         About: false,
+        Games: false,
     });
 
     const toggleWindow = (windowName: string, isVisible: boolean) => {
@@ -36,7 +38,12 @@ function App() {
                 'Contact': () => handleOpenWindow('Contact'),
                 'Blog': () => handleOpenWindow('Blog'),
                 'About': () => handleOpenWindow('About'),
+                'Games': () => handleOpenWindow('Games'),
             }}/>
+            <Euchre 
+                show={showWindow.Games}
+                toggle={() => toggleWindow('Games', !showWindow.Games)}
+            />
             <Contact
                 show={showWindow.Contact}
                 toggle={() => toggleWindow('Contact', !showWindow.Contact)}

@@ -2,25 +2,38 @@ import React from 'react';
 import { Modal, List, TitleBar, Frame} from "@react95/core";
 import { Awfxex32Info } from "@react95/icons";
 import researchPoster from '../images/research_poster.png';
+import { useWindowSize } from './WindowSizeProvider';
 
 export default function About(props: {show : boolean, toggle: () => void}) {
+    const { isMobile, isTablet, isDesktop } = useWindowSize();
     const showAbout = props.show;
     const toggleAbout = props.toggle;
+
+    const getModalDimensions = () => {
+        if (isMobile) {
+            return { width: "80vw", height: "70vh" };
+        } else if (isTablet) {
+            return { width: "70vw", height: "80vh" };
+        } else {
+            return { width: "500px", height: "600px" };
+        }
+    };
 
     const handleCloseAbout = () => {
         toggleAbout();
     };
 
-    const screenW = window.innerWidth * 0.06;
-    const screenH = -20;
+    const { width, height } = getModalDimensions();
+    const screenW = isMobile ? 10 : window.innerWidth * 0.06;
+    const screenH = isMobile ? 10 : 20;
 
     return (
         <>
         {showAbout &&
             // @ts-ignore - React95 Modal has incorrect type definitions
             <Modal
-                width="500px"
-                height="600px"
+                width={width}
+                height={height}
                 icon={<Awfxex32Info variant="32x32_4" />}
                 title="About Me"
                 dragOptions={{ defaultPosition: { x: screenW, y: screenH } }}

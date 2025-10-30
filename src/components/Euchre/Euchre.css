@@ -1,0 +1,210 @@
+.euchre-container {
+  width: 100%;
+  height: 100%;
+  background: #008000;
+  position: relative;
+  font-family: 'MS Sans Serif', sans-serif;
+  padding: 10px;
+  box-sizing: border-box;
+  color: white;
+}
+
+.game-info {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+
+
+.game-controls {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.game-controls button {
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  padding: 8px 20px;
+  font-family: 'MS Sans Serif', sans-serif;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.game-controls button:active {
+  border: 2px inset #c0c0c0;
+}
+
+/* Bidding Phase Styles */
+.bidding-phase {
+  text-align: center;
+}
+
+.trump-card {
+  margin: 20px 0;
+}
+
+.trump-card p {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.bidding-options h4 {
+  margin: 20px 0 15px 0;
+}
+
+.bid-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.bid-buttons button {
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  padding: 8px 15px;
+  font-family: 'MS Sans Serif', sans-serif;
+  cursor: pointer;
+  font-size: 11px;
+  min-width: 80px;
+}
+
+.bid-buttons button:hover {
+  background: #e0e0e0;
+}
+
+.bid-buttons button:active {
+  border: 2px inset #c0c0c0;
+}
+
+/* Playing Phase Styles */
+.playing-phase {
+  text-align: center;
+}
+
+
+.current-trick h4 {
+  margin-bottom: 10px;
+}
+
+.trick-cards {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  min-height: 90px;
+  align-items: center;
+}
+
+.player-hand {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.player-hand h4 {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.hand-cards {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.playable-card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.playable-card:hover {
+  transform: translateY(-10px);
+}
+
+.ai-turn-indicator {
+  text-align: center;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.waiting-indicator {
+  text-align: center;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+/* Card Styles */
+.card {
+  width: 60px;
+  height: 84px;
+  border: 2px outset #c0c0c0;
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  font-weight: bold;
+  font-size: 12px;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  border: 2px inset #c0c0c0;
+}
+
+.card-back {
+  background: #000080;
+  color: white;
+}
+
+.card-pattern {
+  font-size: 24px;
+}
+
+.card-rank {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.card-suit {
+  font-size: 20px;
+}
+
+.players-info {
+  display: flex;
+  gap: 8px;
+  justify-content: space-around;
+}
+
+.player-info {
+  padding: 6px 10px;
+  border-radius: 4px;
+  min-width: 100px;
+  text-align: center;
+  border: 2px solid transparent;
+}
+
+.player-info h4 {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+}
+
+.player-info p {
+  margin: 2px 0;
+  font-size: 12px;  
+}
+
+.player-info.active {
+  background: rgba(255, 255, 0, 0.25);
+  border: 2px solid #ffff00;
+}

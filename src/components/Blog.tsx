@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, TitleBar, Button } from "@react95/core";
 import { Notepad } from "@react95/icons";
+import { useWindowSize } from './WindowSizeProvider';
 
 function Blog(props: {show : boolean, toggle: () => void}) {
+    const { isMobile, isTablet } = useWindowSize();
     const showBlog = props.show;
     const toggleBlog = props.toggle;
 
+    const getModalDimensions = () => {
+        if (isMobile) {
+            return { width: "85vw", height: "50vh" };
+        } else if (isTablet) {
+            return { width: "80vw", height: "85vh" };
+        }
+        else {
+            return { width: "600px", height: "600px" }; // Increased for better readability
+        } 
+    };
+
+    const { width, height } = getModalDimensions();
     const [posts, setPosts] = useState<{ 
         title: string; 
         link: string; 
@@ -183,8 +197,8 @@ function Blog(props: {show : boolean, toggle: () => void}) {
         {showBlog &&
            // @ts-ignore - React95 Modal has incorrect type definitions
           <Modal
-            width="700px"
-            height="550px"
+            width={width}
+            height={height}
             icon={<Notepad variant="32x32_4" />}
             title={view === 'list' ? "My Blog Posts" : selectedPost?.title}
             dragOptions={{
