@@ -18,7 +18,7 @@ function App() {
         Contact: false,
         Blog: false,
         About: false,
-        Games: false,
+        Euchre: false,
     });
 
     const toggleWindow = (windowName: string, isVisible: boolean) => {
@@ -38,11 +38,11 @@ function App() {
                 'Contact': () => handleOpenWindow('Contact'),
                 'Blog': () => handleOpenWindow('Blog'),
                 'About': () => handleOpenWindow('About'),
-                'Games': () => handleOpenWindow('Games'),
+                'Euchre': () => handleOpenWindow('Euchre'),
             }}/>
             <Euchre 
-                show={showWindow.Games}
-                toggle={() => toggleWindow('Games', !showWindow.Games)}
+                show={showWindow.Euchre}
+                toggle={() => toggleWindow('Euchre', !showWindow.Euchre)}
             />
             <Contact
                 show={showWindow.Contact}
