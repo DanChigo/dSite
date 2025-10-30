@@ -5,7 +5,7 @@ import researchPoster from '../images/research_poster.png';
 import { useWindowSize } from './WindowSizeProvider';
 
 export default function About(props: {show : boolean, toggle: () => void}) {
-    const { isMobile, isTablet, isDesktop } = useWindowSize();
+    const { isMobile, isTablet } = useWindowSize();
     const showAbout = props.show;
     const toggleAbout = props.toggle;
 

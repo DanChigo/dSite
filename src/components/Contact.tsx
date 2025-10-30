@@ -7,7 +7,7 @@ import { useWindowSize } from './WindowSizeProvider';
 export default function Contact(props: {show : boolean, toggle: () => void}) {
     const showContact = props.show;
     const toggleContact = props.toggle;
-    const { isMobile, isTablet, isDesktop } = useWindowSize();
+    const { isMobile, isTablet } = useWindowSize();
 
     const handleCloseContact = () => {
         toggleContact();

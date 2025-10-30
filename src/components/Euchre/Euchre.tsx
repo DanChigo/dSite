@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, TitleBar } from "@react95/core";
 import type { GameState, Suit } from './types';
-import { initializeGame, dealCards, processBid, playCard, evaluateTrickWinner } from './gameLogic';
+import { initializeGame, dealCards, processBid, playCard} from './gameLogic';
 import BiddingPhase from './Bid';
 import PlayingPhase from './Play';
 import { useWindowSize } from '../WindowSizeProvider';
