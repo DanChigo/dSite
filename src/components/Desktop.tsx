@@ -31,7 +31,7 @@ export default function Desktop(props : DesktopProps) {
                 onDoubleClick={handleOpenGames}
             >
                 <Mshearts1 variant="32x32_4" />
-                <p>Games</p>
+                <p>Play Euchre</p>
             </div>
             <div
                 className={activeIcon === 2 ? "active-icon" : "inactive-icon"}
