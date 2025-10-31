@@ -10,6 +10,11 @@ export interface Card {
   id: string;
 }
 
+export interface PlayedCard extends Card {
+  playerId: number;
+  playerName: string;
+}
+
 export interface Player {
   id: number;
   name: string;
@@ -28,10 +33,18 @@ export interface GameState {
   trumpSuit: Suit | null;
   currentPlayer: number;
   dealer: number;
-  phase: 'dealing' | 'bidding' | 'playing' | 'scoring';
+  /*
+   * DEALING - cards dealt
+   * BIDDING - players bid for trump
+   * PLAYING - players play cards
+   * SCORING - points tallied after hand
+   * TRICKCOMPLETE - trick completed, allows for user to see all 4 cards played
+   * GAMEOVER - game has been won by a team
+   */
+  phase: 'dealing' | 'bidding' | 'playing' | 'scoring' | 'trickComplete' | 'gameOver';
   biddingRound: 1 | 2; 
   passCount: number;
   score: { team1: number; team2: number };
-  currentTrick: Card[];
+  currentTrick: PlayedCard[];
   tricksWon: { team1: number; team2: number };
 }

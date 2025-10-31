@@ -3,10 +3,10 @@ import { HeuristicAgent } from './HeuristicAgent';
 
 export function initializeGame(): GameState {
     const players: Player[] = [
-        { name: "You", hand: [], isDealer: false, tricksWon: 0, isAI: false, id: 1, CurrentTurn: false },
-        { name: "Left", hand: [], isDealer: false, tricksWon: 0, isAI: true, agent: new HeuristicAgent("Left"), id: 2, CurrentTurn: false },
-        { name: "Partner", hand: [], isDealer: false, tricksWon: 0, isAI: true, agent: new HeuristicAgent("Partner"), id: 3, CurrentTurn: false },
-        { name: "Right", hand: [], isDealer: true, tricksWon: 0, isAI: true, agent: new HeuristicAgent("Right"), id: 4, CurrentTurn: false },
+        { name: "You", hand: [], isDealer: false, tricksWon: 0, isAI: false, id: 0, CurrentTurn: false },
+        { name: "Left", hand: [], isDealer: false, tricksWon: 0, isAI: true, agent: new HeuristicAgent("Left"), id: 1, CurrentTurn: false },
+        { name: "Partner", hand: [], isDealer: false, tricksWon: 0, isAI: true, agent: new HeuristicAgent("Partner"), id: 2, CurrentTurn: false },
+        { name: "Right", hand: [], isDealer: true, tricksWon: 0, isAI: true, agent: new HeuristicAgent("Right"), id: 3, CurrentTurn: false },
     ];
 
     return {
@@ -136,7 +136,12 @@ export function processBid(gameState: GameState, bid: Suit | 'pass'): GameState 
 }
 
 export function playCard(gameState: GameState, cardId: string): GameState {
-    const newState = { ...gameState };
+    const newState = { 
+        ...gameState,
+        currentTrick: [...gameState.currentTrick], // Deep copy the trick array
+        players: gameState.players.map(p => ({ ...p, hand: [...p.hand] })) // Deep copy players
+    };
+    
     const currentPlayer = newState.players[newState.currentPlayer];
     
     // Find and remove the card from current player's hand
@@ -144,7 +149,11 @@ export function playCard(gameState: GameState, cardId: string): GameState {
     if (cardIndex === -1) return newState; // Invalid card
     
     const playedCard = currentPlayer.hand.splice(cardIndex, 1)[0];
-    newState.currentTrick.push(playedCard);
+    newState.currentTrick.push({
+        ...playedCard,
+        playerId: currentPlayer.id,
+        playerName: currentPlayer.name
+    });
     
     // Check if trick is complete (4 cards played)
     if (newState.currentTrick.length === 4) {
@@ -158,35 +167,55 @@ export function playCard(gameState: GameState, cardId: string): GameState {
         // Award trick to winner
         newState.players[winnerIndex].tricksWon++;
         
-        // Update team tricks
+        // Update team tricks (deep copy this too)
+        newState.tricksWon = { ...newState.tricksWon };
         const winnerTeam = winnerIndex % 2 === 0 ? 'team1' : 'team2';
         newState.tricksWon[winnerTeam]++;
         
-        // Clear the trick
-        newState.currentTrick = [];
+        // DON'T clear trick yet - set phase to trickComplete
+        newState.phase = 'trickComplete';
         
-        // Check if hand is over (all 5 tricks played)
-        const totalTricks = newState.tricksWon.team1 + newState.tricksWon.team2;
-        if (totalTricks === 5) {
-            // Calculate score
-            const team1Score = newState.tricksWon.team1;
-            const team2Score = newState.tricksWon.team2;
-            
-            if (team1Score >= 3) {
-                newState.score.team1 += team1Score === 5 ? 2 : 1; // March = 2 pts
-            } else {
-                newState.score.team2 += team2Score === 5 ? 2 : 1;
-            }
-            
-            // Reset for next hand
-            newState.phase = 'scoring';
-        } else {
-            // Winner leads next trick
-            newState.currentPlayer = winnerIndex;
-        }
+        // Store winner for next trick leader
+        newState.currentPlayer = winnerIndex;
     } else {
         // Move to next player
         newState.currentPlayer = (newState.currentPlayer + 1) % 4;
+    }
+    
+    return newState;
+}
+
+// Add simple function to continue after trick is shown
+export function continuePlaying(gameState: GameState): GameState {
+    const newState = { 
+        ...gameState,
+        currentTrick: [], // Create NEW empty array, don't mutate
+        tricksWon: { ...gameState.tricksWon },
+        score: { ...gameState.score },
+        players: gameState.players.map(p => ({ ...p }))
+    };
+    
+    // Check if hand is over (all 5 tricks played)
+    const totalTricks = newState.tricksWon.team1 + newState.tricksWon.team2;
+    if (totalTricks === 5) {
+        // Calculate score
+        const team1Score = newState.tricksWon.team1;
+        const team2Score = newState.tricksWon.team2;
+        
+        if (team1Score >= 3) {
+            newState.score.team1 += team1Score === 5 ? 2 : 1;
+        } else {
+            newState.score.team2 += team2Score === 5 ? 2 : 1;
+        }
+        
+        newState.phase = 'scoring';
+        
+        if (newState.score.team1 >= 10 || newState.score.team2 >= 10) {
+            newState.phase = 'gameOver';
+        }
+    } else {
+        // Continue to next trick
+        newState.phase = 'playing';
     }
     
     return newState;
@@ -246,4 +275,30 @@ export function evaluateTrickWinner(trick: Card[], trumpSuit: Suit): number {
     }
 
     return winningPlayer;
+}
+
+export function startNewHand(gameState: GameState): GameState {
+    const newState = { ...gameState}
+    newState.tricksWon = { team1: 0, team2: 0 };
+    newState.currentTrick = [];
+    newState.trumpSuit = null;
+    newState.passCount = 0;
+    newState.biddingRound = 1;
+
+    // Rotate dealer
+    newState.dealer = (newState.dealer + 1) % 4;
+    newState.currentPlayer = (newState.dealer + 1) % 4;
+
+    newState.players.forEach(player => {
+        player.hand = [];
+        player.tricksWon = 0;
+        player.isDealer = false;
+    });
+    newState.players[newState.dealer].isDealer = true;
+
+    // Create and shuffle new deck
+    newState.deck = createDeck();
+    newState.phase = 'dealing';
+    return newState;
+
 }

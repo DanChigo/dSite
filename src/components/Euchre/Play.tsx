@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import type { GameState } from './types';
 import Card from './Card';
 
@@ -8,31 +8,10 @@ interface PlayingPhaseProps {
 }
 
 export default function PlayingPhase({ gameState, onPlayCard }: PlayingPhaseProps) {
+  console.log('Current trick length:', gameState.currentTrick.length, gameState.currentTrick);
+  
   const currentPlayer = gameState.players[gameState.currentPlayer];
   const isHumanTurn = gameState.currentPlayer === 0;
-
-  // Handle AI turns
-  useEffect(() => {
-    if (!isHumanTurn && currentPlayer.isAI && currentPlayer.agent) {
-      const agent = currentPlayer.agent;
-      const timer = setTimeout(() => {
-        const leadSuit = gameState.currentTrick.length > 0 
-          ? gameState.currentTrick[0].suit 
-          : undefined;
-        
-        const cardToPlay = agent.chooseCard(
-          currentPlayer.hand,
-          gameState.trumpSuit!,
-          leadSuit,
-          gameState.currentTrick
-        );
-        
-        onPlayCard(cardToPlay.id);
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [gameState.currentPlayer, isHumanTurn, currentPlayer, gameState, onPlayCard]);
 
   return (
     <div className="playing-phase">
@@ -45,10 +24,10 @@ export default function PlayingPhase({ gameState, onPlayCard }: PlayingPhaseProp
       <div className="current-trick">
         <h4>Current Trick:</h4>
         <div className="trick-cards">
-          {gameState.currentTrick.map((card, index) => (
+          {gameState.currentTrick.map((card) => (
             <div key={card.id} className="trick-card-wrapper">
               <Card card={card} />
-              <span className="player-label">Player {index}</span>
+              <span className="player-label">{card.playerName}</span>
             </div>
           ))}
         </div>

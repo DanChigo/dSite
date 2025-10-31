@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, TitleBar } from "@react95/core";
 import type { GameState, Suit } from './types';
-import { initializeGame, dealCards, processBid, playCard} from './gameLogic';
+import { initializeGame, dealCards, processBid, playCard, continuePlaying } from './gameLogic';
 import BiddingPhase from './Bid';
 import PlayingPhase from './Play';
 import { useWindowSize } from '../WindowSizeProvider';
@@ -67,7 +67,25 @@ export default function Euchre({ show, toggle }: EuchreProps) {
         return () => clearTimeout(timer);
       }
     }
-  }, [gameState.phase, gameState.currentPlayer, gameState.currentTrick.length]);
+  }, [gameState.phase, gameState.currentPlayer]); // REMOVE currentTrick.length dependency!
+
+  const clearingTrickRef = React.useRef(false);
+
+  React.useEffect(() => {
+    if (gameState.phase === 'trickComplete' && !clearingTrickRef.current) {
+        clearingTrickRef.current = true;
+        const timer = setTimeout(() => {
+            const newGameState = continuePlaying(gameState);
+            setGameState(newGameState);
+            clearingTrickRef.current = false;
+        }, 2000); // Reduced to 2 seconds
+        
+        return () => {
+          clearTimeout(timer);
+          clearingTrickRef.current = false;
+        };
+    }
+  }, [gameState.phase, gameState.currentTrick.length]);
 
   const getModalDimensions = () => {
     if (isMobile) {
@@ -136,7 +154,7 @@ export default function Euchre({ show, toggle }: EuchreProps) {
                 <BiddingPhase gameState={gameState} onBid={handleBid} />
               )}
 
-              {gameState.phase === 'playing' && (
+              {(gameState.phase === 'playing' || gameState.phase === 'trickComplete') && (
                 <PlayingPhase gameState={gameState} onPlayCard={handlePlayCard} />
               )}
             </div>
