@@ -77,12 +77,12 @@ export default function About(props: {show : boolean, toggle: () => void}) {
                                         <h3>🤖 MARP Agent</h3>
                                         <p>I was a summer 2025 AI/ML Engineering intern at CNA Financial Corporation. My main project concerned developing, optimizing,
                                             and deploying an AI Agent to assiste executives in the company. The problem the agent was designed to alleviate
-                                            was the overwhelming amount of monthly reports executives have to comb through to keep up with the state of the company. The agent was designed to
+                                            was the overwhelming amount of monthly reports executives have to comb through to keep up with the state of the company.
                                             The reports were nearly 400+ pages long and contained their teams updates on critical accounts. 
                                         </p>
                                         <p>
-                                            The agent was built with SharePoint Agent, and we used Prompt Engineering techniques to take the agents
-                                            performance from 60% to 90% accurracy. A drag in the development process was the manual testing that had to be 
+                                            The agent was built with SharePointAgent, and we used Prompt Engineering techniques to take the agents
+                                            performance from 60% to 90% accuracy. A drag in the development process was the manual testing that had to be
                                             done to validate the agents performance. I personally developed an automated testing framework using Playwright
                                             and TypeScript. This allowed us to run 20 queries in only 5 minutes a task that would have taken 2-3 hours manually. 
                                         </p>
